@@ -24,4 +24,4 @@ USER app
 
 EXPOSE 5000
 
-CMD ["pipenv", "run", "python", "app.py"]
+CMD ["pipenv", "run", "flask", "run", "--host=0.0.0.0", "--port=5000"]
