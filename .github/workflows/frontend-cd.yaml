@@ -18,9 +18,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - run: npm ci
-      - run: npm run lint
-      - run: CI=true npm test
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Configure AWS
         uses: aws-actions/configure-aws-credentials@v4
@@ -33,15 +37,12 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build Image
-        run: |
-          docker build \
-            --build-arg REACT_APP_MOVIE_API_URL=${{ secrets.BACKEND_URL }} \
-            -t ${{ secrets.FRONTEND_ECR }}:${{ github.sha }} .
+        run: docker build --build-arg REACT_APP_MOVIE_API_URL=${{ secrets.REACT_APP_MOVIE_API_URL }} -t ${{ secrets.FRONTEND_IMAGE_URI }}:${{ github.sha }} .
 
       - name: Push Image
-        run: docker push ${{ secrets.FRONTEND_ECR }}:${{ github.sha }}
+        run: docker push ${{ secrets.FRONTEND_IMAGE_URI }}:${{ github.sha }}
 
-        - name: Setup kubectl
+      - name: Setup kubectl
         uses: azure/setup-kubectl@v4
 
       - name: Setup kustomize
@@ -53,5 +54,5 @@ jobs:
       - name: Deploy
         run: |
           cd k8s
-          kustomize edit set image frontend=${{ secrets.FRONTEND_ECR }}:${{ github.sha }}
+          kustomize edit set image frontend=${{ secrets.FRONTEND_IMAGE_URI }}:${{ github.sha }}
           kustomize build | kubectl apply -f -

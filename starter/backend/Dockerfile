@@ -2,8 +2,6 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-RUN useradd -u 1000 -m app
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     python3-dev \
@@ -11,6 +9,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcrypt-dev \
     libssl-dev \
     && rm -rf /var/lib/apt/lists/*
+
+RUN useradd -u 1000 -m app
 
 RUN pip install pipenv
 
@@ -21,3 +21,7 @@ RUN cd /app && pipenv install --system --deploy
 COPY . /app
 
 USER app
+
+EXPOSE 5000
+
+CMD ["pipenv", "run", "serve"]

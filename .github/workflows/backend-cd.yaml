@@ -23,6 +23,12 @@ jobs:
         with:
           python-version: '3.10'
 
+      
+      - name: Install system dependencies for uWSGI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential python3.10-dev libpcre2-dev libcrypt-dev
+
       - run: pip install pipenv
       - run: pipenv install --dev
       - run: pipenv run lint
