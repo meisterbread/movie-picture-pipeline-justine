@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/python:3.10-alpine
+FROM public.ecr.aws/docker/library/python:3.10-slim
 ENV FLASK_RUN_HOST=0.0.0.0
 
 WORKDIR /
@@ -23,8 +23,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   python3-dev \
   libpcre2-dev \
   libcrypt-dev \
+  libssl-dev \
   && rm -rf /var/lib/apt/lists/*
-  
+
 RUN cd /app && pipenv install --system --deploy
 
 COPY . /app
