@@ -41,6 +41,15 @@ jobs:
       - name: Push Image
         run: docker push ${{ secrets.FRONTEND_ECR }}:${{ github.sha }}
 
+        - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Setup kustomize
+        uses: imranismail/setup-kustomize@v2
+
+      - name: Update kubeconfig
+        run: aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
+
       - name: Deploy
         run: |
           cd k8s
