@@ -17,6 +17,14 @@ RUN apk update && \
 RUN mkdir -p /var/www/app && mkdir /app
 
 COPY Pipfile* /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  build-essential \
+  python3-dev \
+  libpcre2-dev \
+  libcrypt-dev \
+  && rm -rf /var/lib/apt/lists/*
+  
 RUN cd /app && pipenv install --system --deploy
 
 COPY . /app
