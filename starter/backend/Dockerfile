@@ -3,12 +3,12 @@ FROM python:3.10-slim
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    python3-dev \
-    libpcre2-dev \
-    libcrypt-dev \
-    libssl-dev \
-    && rm -rf /var/lib/apt/lists/*
+  build-essential \
+  python3-dev \
+  libpcre2-dev \
+  libcrypt-dev \
+  libssl-dev \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -u 1000 -m app
 
