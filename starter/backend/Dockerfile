@@ -24,4 +24,4 @@ USER app
 
 EXPOSE 5000
 
-CMD ["pipenv", "run", "serve"]
+CMD ["pipenv", "run", "python", "app.py"]
