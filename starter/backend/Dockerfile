@@ -16,7 +16,7 @@ RUN pip install pipenv
 
 COPY Pipfile* /app/
 
-RUN cd /app && pipenv install --system --deploy
+RUN pipenv install --system --deploy
 
 COPY . /app
 
@@ -26,4 +26,4 @@ USER app
 
 EXPOSE 5000
 
-CMD ["flask", "--app", "movies", "run", "--host=0.0.0.0", "--port=5000"]
+CMD ["python", "app.py"]
