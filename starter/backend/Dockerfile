@@ -18,10 +18,12 @@ RUN apk update && \
 COPY Pipfile* /app/
 RUN cd /app && pipenv install --system --deploy
 
-COPY . /app
+COPY .. /app
+
+WORKDIR /app/starter
 
 USER app
 
 EXPOSE 5000
 
-CMD ["python", "-c", "import __init__"]
+CMD ["python", "-m", "backend"]
