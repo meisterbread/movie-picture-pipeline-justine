@@ -1,4 +1,4 @@
-FROM  public.ecr.aws/docker/library/node:18.14.2-alpine3.17
+FROM public.ecr.aws/docker/library/node:18.14.2-alpine3.17
 
 ARG REACT_APP_MOVIE_API_URL
 ENV REACT_APP_MOVIE_API_URL=${REACT_APP_MOVIE_API_URL}
@@ -15,4 +15,4 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["pipenv", "run", "flask", "run", "--host=0.0.0.0", "--port=5000"]
+CMD ["npm", "start"]
