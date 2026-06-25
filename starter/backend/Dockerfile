@@ -2,6 +2,7 @@ FROM public.ecr.aws/docker/library/python:3.10-alpine
 
 ENV FLASK_RUN_HOST=0.0.0.0
 
+# ✅ go into starter level INSIDE container
 WORKDIR /app/starter
 
 RUN adduser -u 1000 -D app
@@ -17,8 +18,8 @@ RUN apk update && \
   libffi-dev \
   && pip install pipenv
 
-COPY starter/backend/Pipfile* /app/starter/backend/
-RUN cd /app/starter/backend && pipenv install --system --deploy
+COPY Pipfile* /app/
+RUN cd /app && pipenv install --system --deploy
 
 COPY . /app
 
