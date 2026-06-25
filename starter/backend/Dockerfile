@@ -26,4 +26,4 @@ USER app
 
 EXPOSE 5000
 
-CMD ["pipenv", "run", "python", "-m", "movies"]
+CMD ["python", "-m", "movies"]
