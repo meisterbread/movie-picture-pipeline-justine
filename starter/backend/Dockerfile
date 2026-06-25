@@ -20,10 +20,8 @@ RUN cd /app && pipenv install --system --deploy
 
 COPY . /app
 
-ENV PYTHONPATH=/app
-
 USER app
 
 EXPOSE 5000
 
-CMD ["python", "-c", "from __init__ import app; app.run(host='0.0.0.0', port=5000)"]
+CMD ["python", "-m", "backend"]
