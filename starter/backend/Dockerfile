@@ -24,4 +24,4 @@ USER app
 
 EXPOSE 5000
 
-CMD ["python", "-m", "__init__"]
+CMD ["python", "-c", "import __init__"]
