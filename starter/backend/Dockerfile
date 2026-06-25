@@ -26,3 +26,4 @@ USER app
 EXPOSE 5000
 
 CMD ["python", "-c", "from starter.backend import app; app.run(host='0.0.0.0', port=5000)"]
+#/test
