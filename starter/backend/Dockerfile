@@ -15,15 +15,16 @@ RUN useradd -u 1000 -m app
 RUN pip install pipenv
 
 COPY Pipfile* /app/
-
 RUN pipenv install --system --deploy
 
 COPY . /app
 
-ENV PYTHONPATH=/app/starter/backend
+# ✅ IMPORTANT
+ENV PYTHONPATH=/app
 
 USER app
 
 EXPOSE 5000
 
-CMD ["flask", "--app", "__init__:app", "run", "--host=0.0.0.0", "--port=5000"]
+# ✅ FINAL CORRECT MODULE PATH
+CMD ["flask", "--app", "starter.backend:app", "run", "--host=0.0.0.0", "--port=5000"]
