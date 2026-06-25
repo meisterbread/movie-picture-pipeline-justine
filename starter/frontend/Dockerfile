@@ -17,7 +17,7 @@ COPY . .
 # Build the app
 RUN npm run build
 
-# Expose the port used by the React app
+# Expose the port used by the React app 3000
 EXPOSE 3000
 
 # Start the React app when the container starts
