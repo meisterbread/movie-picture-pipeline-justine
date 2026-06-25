@@ -21,9 +21,10 @@ RUN cd /app && pipenv install --system --deploy
 COPY . /app
 
 ENV PYTHONPATH=/app
+ENV FLASK_APP=movies
 
 USER app
 
 EXPOSE 5000
 
-CMD ["python", "-m", "movies"]
+CMD ["flask", "--app", "movies", "run", "--host=0.0.0.0", "--port=5000"]
