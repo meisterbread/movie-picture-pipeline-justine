@@ -17,8 +17,8 @@ RUN apk update && \
   libffi-dev \
   && pip install pipenv
 
-COPY starter/backend/Pipfile* /app/
-RUN cd /app && pipenv install --system --deploy
+COPY starter/backend/Pipfile* /app/starter/backend/
+RUN cd /app/starter/backend && pipenv install --system --deploy
 
 COPY . /app
 
