@@ -19,12 +19,10 @@ RUN pipenv install --system --deploy
 
 COPY . /app
 
-# ✅ IMPORTANT
 ENV PYTHONPATH=/app
 
 USER app
 
 EXPOSE 5000
 
-# ✅ FINAL CORRECT MODULE PATH
-CMD ["flask", "--app", "starter.backend:app", "run", "--host=0.0.0.0", "--port=5000"]
+CMD ["python", "-c", "from starter.backend import app; app.run(host='0.0.0.0', port=5000)"]
