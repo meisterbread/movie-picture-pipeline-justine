@@ -20,10 +20,10 @@ RUN pipenv install --system --deploy
 
 COPY . /app
 
-ENV PYTHONPATH=/app
+ENV PYTHONPATH=/app/starter/backend
 
 USER app
 
 EXPOSE 5000
 
-CMD ["flask", "--app", "app:app", "run", "--host=0.0.0.0", "--port=5000"]
+CMD ["flask", "--app", "__init__:app", "run", "--host=0.0.0.0", "--port=5000"]
