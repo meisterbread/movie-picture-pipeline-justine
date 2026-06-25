@@ -1,8 +1,6 @@
 FROM public.ecr.aws/docker/library/python:3.10-alpine
 
-ENV FLASK_RUN_HOST=0.0.0.0
-
-WORKDIR /app/starter
+WORKDIR /app
 
 RUN adduser -u 1000 -D app
 
@@ -22,10 +20,10 @@ RUN cd /app && pipenv install --system --deploy
 
 COPY . /app
 
-ENV PYTHONPATH=/app/starter
+ENV PYTHONPATH=/app
 
 USER app
 
 EXPOSE 5000
 
-CMD ["python", "-m", "flask", "--app", "backend:app", "run", "--host=0.0.0.0", "--port=5000"]
+CMD ["python", "-c", "from __init__ import app; app.run(host='0.0.0.0', port=5000)"]
