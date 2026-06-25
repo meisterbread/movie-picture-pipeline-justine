@@ -24,4 +24,4 @@ USER app
 
 EXPOSE 5000
 
-CMD ["python", "-m", "backend"]
+CMD ["python", "-m", "__init__"]
