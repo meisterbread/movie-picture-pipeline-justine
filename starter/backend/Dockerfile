@@ -1,6 +1,6 @@
 FROM python:3.10-slim
 
-WORKDIR /app
+WORKDIR /app/starter
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
   build-essential \
@@ -19,11 +19,10 @@ RUN pipenv install --system --deploy
 
 COPY . /app
 
-ENV PYTHONPATH=/app
+ENV PYTHONPATH=/app/starter
 
 USER app
 
 EXPOSE 5000
 
-CMD ["python", "-c", "from starter.backend import app; app.run(host='0.0.0.0', port=5000)"]
-#/test
+CMD ["flask", "--app", "backend:app", "run", "--host=0.0.0.0", "--port=5000"]
