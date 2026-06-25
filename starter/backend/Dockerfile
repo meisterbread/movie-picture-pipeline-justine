@@ -21,7 +21,6 @@ RUN cd /app && pipenv install --system --deploy
 COPY . /app
 
 ENV PYTHONPATH=/app
-ENV FLASK_APP=movies
 
 USER app
 
