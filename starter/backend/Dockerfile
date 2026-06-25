@@ -1,28 +1,24 @@
-FROM python:3.10-slim
+FROM public.ecr.aws/docker/library/python:3.10-alpine
+ENV FLASK_RUN_HOST=0.0.0.0
 
-WORKDIR /app/starter
+WORKDIR /
+RUN adduser -u 1000 -D app
+RUN apk update && \
+  apk add \
+  pcre \
+  pcre-dev \
+  build-base \
+  gcc \
+  linux-headers \
+  openssl \
+  libffi-dev \
+  && pip install pipenv
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  build-essential \
-  python3-dev \
-  libpcre2-dev \
-  libcrypt-dev \
-  libssl-dev \
-  && rm -rf /var/lib/apt/lists/*
+RUN mkdir -p /var/www/app && mkdir /app
 
-RUN useradd -u 1000 -m app
-
-RUN pip install pipenv
-
-COPY Pipfile* /app/
-RUN pipenv install --system --deploy
+COPY Pipfile* /app
+RUN cd /app && pipenv install --system --deploy
 
 COPY . /app
 
-ENV PYTHONPATH=/app/starter
-
-USER app
-
-EXPOSE 5000
-
-CMD ["flask", "--app", "backend:app", "run", "--host=0.0.0.0", "--port=5000"]
+CMD uwsgi --http :5000 --master --enable-threads -s /var/www/app/app.sock --manage-script-name --mount /=backend:app
